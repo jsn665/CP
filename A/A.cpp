@@ -13,26 +13,23 @@ const ll md = 1000000007;
 
 int main()
 {
-    ll n, m, l, s, res;
-    cin >> n;
-    vector<ll> v(n);
-    m = 0;
-    l = INT_MAX;
-    for (int i = 0; i < n; i++)
+    string s;
+    cin >> s;
+    bool ok = false;
+    for (int i = 0; i < s.length(); i++)
     {
-        cin >> s;
-        v[i] = s;
-        m = max(m, s);
-        l = min(l, s);
+        if ((s[i] == 'B' && s[i - 1] == 'A' && s[i + 1] == 'C') || s[i] == 'B' && (s[i - 1] == 'C' && s[i + 1] == 'A'))
+            ok = true;
+        else if ((s[i] == 'A' && s[i - 1] == 'B' && s[i + 1] == 'C') || (s[i] == 'A' && s[i - 1] == 'C' && s[i + 1] == 'B'))
+            ok = true;
+        else if ((s[i] == 'C' && s[i - 1] == 'A' && s[i + 1] == 'B') || (s[i] == 'C' && s[i - 1] == 'B' && s[i + 1] == 'A'))
+            ok = true;
     }
-    res = 0;
-    for (int i = 0; i < v.size(); i++)
-    {
-        if (m > v[i] && l < v[i])
-        {
-            res += 1;
-        }
-    }
-    cout << res << "\n";
+    if (ok)
+        cout << "Yes"
+             << "\n";
+    else
+        cout << "No"
+             << "\n";
     return 0;
 }
