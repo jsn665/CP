@@ -1,3 +1,5 @@
+# 494. Target Sum
+# Knapsack 0/1 variant
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
