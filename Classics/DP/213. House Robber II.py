@@ -1,21 +1,15 @@
 # 213. House Robber II
 from typing import List
-from functools import lru_cache
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        @lru_cache(None)
-        def dp(currentHouse: int, robbedFirst: bool):
+        def helper(currentHouse: int, nums: List[int], dp: dict):
             if currentHouse >= len(nums):
                 return 0
-            elif currentHouse == len(nums) - 1 and robbedFirst:
-                return 0
-            elif currentHouse == len(nums) - 1 and not robbedFirst:
-                return nums[currentHouse]
-            rob = dp(currentHouse + 2, robbedFirst) + nums[currentHouse]
-            ignore = dp(currentHouse + 1, robbedFirst)
-            return max(rob, ignore)
-
-        if len(nums) == 1:
-            return nums[0]
-        return max(dp(0, True), dp(1, False))
+            if currentHouse in dp:
+                return dp[currentHouse]
+            rob = helper(currentHouse + 2, nums, dp) + nums[currentHouse]
+            ignore = helper(currentHouse + 1, nums, dp)
+            dp[currentHouse] = max(rob, ignore)
+            return dp[currentHouse]
+        return max(helper(0, nums[:-1], {}), helper(0, nums[1:], {}))
