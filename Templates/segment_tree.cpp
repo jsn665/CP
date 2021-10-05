@@ -45,22 +45,3 @@ class SegmentTree{
 		}
 
 };
-
-
-int main(){
-	int N, Q;
-	cin >> N >> Q;
-	vector<int> a(N);
-	for(int i = 0; i < N; i++){
-		cin >> a[i];
-	}
-	SegmentTree seg(a);
-	for(int i = 0; i < Q; i++){
-		int L, R;
-		cin >> L >> R;
-		L--, R--;
-		cout << seg.query(L, R) << "\n";
-	}
-
-	return 0;
-}
