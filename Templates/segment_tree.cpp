@@ -7,10 +7,6 @@ using namespace std;
 class SegmentTree{
 	
 	public:
-		// 0[0, 7] -> 1[0, 3] -> 3[0, 1] -> 7 [0, 0]
-		// 0[0, 7] -> 2[4, 7] -> 6[6, 7] -> 14 [7, 7]
-		//
-		// (1, 4, 0, 0, 7) -> (1, 4, 1, ) 
 		vector<ll> tree;
 		int N;
 		SegmentTree(vector<int> &nums){
