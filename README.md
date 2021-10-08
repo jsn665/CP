@@ -1,7 +1,7 @@
 # CP
 
 This repository comprises of algorithmic style questions done on several websites such as leetcode, CSES, and Codeforces. <br />
-Also, this repository contains the templates to certain data structures or boilerplate code. <br />
+Also, this repository contains the templates to certain data structures and boilerplate code. <br />
 
  # Contests & CSES
  - Solutions to recent Leetcode contests have been uploaded. 
