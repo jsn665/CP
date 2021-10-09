@@ -18,5 +18,6 @@ Also, this repository contains the templates to certain data structures and boil
  - Dijkstra's Single Source Shortest Path
  - Sieve of Eratosthenes (NON-LINEAR)
  - Java Competitve Programming template
+ - Trie
  
 
