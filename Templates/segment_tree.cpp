@@ -43,5 +43,26 @@ class SegmentTree{
 		ll query(int L, int R){
 			return queryHelper(L, R, 0, 0, N - 1);
 		}
-
+	
+		void updateHelper(int root, int rootL, int rootR, int index, int value){
+                	if(rootL == rootR) {
+                        	tree[root] += value;
+                        	return;
+                }
+                	int half = (rootL + rootR) / 2;
+                	int leftChild = 2 * root + 1;
+                	int rightChild = 2 * root + 2;
+                	if(index >= rootL && index <= half){
+                        	updateHelper(leftChild, rootL, half, index, value);
+                	}
+                	else{
+                        	updateHelper(rightChild, half + 1, rootR, index, value);
+                	}
+                	tree[root] = tree[leftChild] + tree[rightChild];
+        		}
+	
+	
+        	void update(int index, int value){
+                	updateHelper(0, 0, N - 1, index, value);
+			}
 };
