@@ -3,10 +3,8 @@ using namespace std;
 const int mX = 1e5;
 int parent[mX];
 int size[mX];
-class Disjoint_Set
-{
 
-public:
+
     int find_set(int v)
     {
         if (v == parent[v])
@@ -32,4 +30,3 @@ public:
             size[a] += size[b];
         }
     }
-};
