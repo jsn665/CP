@@ -1,8 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
 const int mX = 1e5;
 int parent[mX];
-int size[mX];
+int sz[mX];
 
 
     int find_set(int v)
@@ -15,7 +13,7 @@ int size[mX];
     void make_set(int v)
     {
         parent[v] = v;
-        size[v] = 1;
+        sz[v] = 1;
     }
 
     void union_sets(int a, int b)
@@ -24,9 +22,9 @@ int size[mX];
         b = find_set(b);
         if (a != b)
         {
-            if (size[a] < size[b])
+            if (sz[a] < sz[b])
                 swap(a, b);
             parent[b] = a;
-            size[a] += size[b];
+            sz[a] += sz[b];
         }
     }
