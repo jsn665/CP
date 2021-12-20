@@ -1,6 +1,7 @@
-const int mX = 1e5;
-int parent[mX];
-int sz[mX];
+struct UF{
+    static const int mX = 1e5;
+    int parent[mX];
+    int sz[mX];
 
 
     int find_set(int v)
@@ -28,3 +29,4 @@ int sz[mX];
             sz[a] += sz[b];
         }
     }
+};
