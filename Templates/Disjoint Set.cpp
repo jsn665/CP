@@ -17,7 +17,7 @@ struct UF{
         sz[u] = 1;
     }
 
-    void union_sets(int a, int b)
+    void merge(int a, int b)
     {
         a = find(a);
         b = find(b);
