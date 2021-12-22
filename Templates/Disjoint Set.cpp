@@ -4,23 +4,23 @@ struct UF{
     int sz[mX];
 
 
-    int find_set(int v)
+    int find(int u)
     {
-        if (v == parent[v])
-            return v;
-        return parent[v] = find_set(parent[v]);
+        if (u == parent[u])
+            return u;
+        return parent[u] = find(parent[u]);
     }
 
-    void make_set(int v)
+    void make(int u)
     {
-        parent[v] = v;
-        sz[v] = 1;
+        parent[u] = u;
+        sz[u] = 1;
     }
 
     void union_sets(int a, int b)
     {
-        a = find_set(a);
-        b = find_set(b);
+        a = find(a);
+        b = find(b);
         if (a != b)
         {
             if (sz[a] < sz[b])
