@@ -1,3 +1,4 @@
+# Minimum number of adjacent swaps
 
 def bubble(a):
     n = len(a)
