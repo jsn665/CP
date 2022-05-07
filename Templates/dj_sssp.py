@@ -1,4 +1,4 @@
-def djssp(src, trg, graph, n):
+def djsssp(src, trg, graph, n):
     dist = [float('-inf')] * n
     dist[src] = 0
     heap = [(0, src)]
