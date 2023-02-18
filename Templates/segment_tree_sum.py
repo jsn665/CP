@@ -51,3 +51,6 @@ class SegmentTree:
         else:
             self._update_helper(index, right_child, mid + 1, rootR, value)
         self.tree[root] = self.tree[left_child] + self.tree[right_child]
+
+    def __str__(self):
+        return str(self.tree)
