@@ -1,37 +1,69 @@
-# Segment Tree for Min,Max Queries ONLY
 class SegmentTree:
-
-    def __init__(self, arr: list, f: 'Optional'):
-        self.n = len(arr)
-        self.f = f
-        self.ST = [0] * (self.n << 1)
-        self.ST[self.n:] = arr[0:self.n]
-        for i in range(self.n - 1, -1, -1):
-            self.ST[i] = self.f(self.ST[i << 1], self.ST[(i << 1) + 1])
-
-    def update(self, p: int, newVal: int) -> None:
-        p += self.n
-        self.ST[p] = newVal
-        while p > 1:
-            p >>= 1
-            newVal = self.f(self.ST[p << 1], self.ST[(p << 1) + 1])
-            if newVal != self.ST[p]:
-                self.ST[p] = newVal
-            else:
-                return
-
-    # query from [l,r) **r is non inclusive**
-    def query(self, l: int, r: int) -> int:
-        l += self.n
-        r += self.n
-        res = float('-inf') if self.f == max else float('inf')
-        while l < r:
-            if (l & 1) == 1:
-                res = self.f(res, self.ST[l])
-                l += 1
-            if (r & 1) == 1:
-                r -= 1
-                res = self.f(res, self.ST[r])
-            r >>= 1
-            l >>= 1
-        return res
+    def __init__(self, nums):
+        self.n = len(nums)
+        self.tree = [float('-inf')] * (4 * self.n)
+        self.lazy = [None] * (4 * self.n)
+        self._build_tree(nums, 0, 0, self.n-1)
+    
+    def _build_tree(self, nums, idx, left, right):
+        if left == right:
+            self.tree[idx] = nums[left]
+        else:
+            mid = (left + right) // 2
+            self._build_tree(nums, 2*idx+1, left, mid)
+            self._build_tree(nums, 2*idx+2, mid+1, right)
+            self.tree[idx] = max(self.tree[2*idx+1], self.tree[2*idx+2])
+    
+    def _update(self, idx, left, right, ul, ur, val):
+        if self.lazy[idx]:
+            self.tree[idx] = self.lazy[idx]
+            if left != right:
+                if not self.lazy[2*idx+1]:
+                    self.lazy[2*idx+1] = self.lazy[idx]
+                if not self.lazy[2*idx+2]:
+                    self.lazy[2*idx+2] = self.lazy[idx]
+            self.lazy[idx] = None
+        
+        if left > ur or right < ul:
+            return
+        
+        if left >= ul and right <= ur:
+            self.tree[idx] = val
+            if left != right:
+                if not self.lazy[2*idx+1]:
+                    self.lazy[2*idx+1] = val
+                if not self.lazy[2*idx+2]:
+                    self.lazy[2*idx+2] = val
+            return
+        
+        mid = (left + right) // 2
+        self._update(2*idx+1, left, mid, ul, ur, val)
+        self._update(2*idx+2, mid+1, right, ul, ur, val)
+        self.tree[idx] = max(self.tree[2*idx+1], self.tree[2*idx+2])
+    
+    def update(self, left, right, val):
+        self._update(0, 0, self.n-1, left, right, val)
+    
+    def _query(self, idx, left, right, ql, qr):
+        if self.lazy[idx]:
+            self.tree[idx] = self.lazy[idx]
+            if left != right:
+                if not self.lazy[2*idx+1]:
+                    self.lazy[2*idx+1] = self.lazy[idx]
+                if not self.lazy[2*idx+2]:
+                    self.lazy[2*idx+2] = self.lazy[idx]
+            self.lazy[idx] = None
+        
+        if left > qr or right < ql:
+            return float('-inf')
+        
+        if left >= ql and right <= qr:
+            return self.tree[idx]
+        
+        mid = (left + right) // 2
+        left_val = self._query(2*idx+1, left, mid, ql, qr)
+        right_val = self._query(2*idx+2, mid+1, right, ql, qr)
+        return max(left_val, right_val)
+    
+    def query(self, left, right):
+        return self._query(0, 0, self.n-1, left, right)
